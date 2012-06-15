@@ -1,0 +1,9 @@
+ = lvalue & rvalue =
+ * Lvalues are addressable. non-const lvalues are also assignbale.
+ * Rvalue is neither addressable nor assignable.
+ * Lvalues name objects that persist beyond a single expression. ++i is lvaue and i++ is rvalue.
+ 
+ = lvaue reference & rvalue reference =
+ * Lvalues strongly prefer binding to lvalue references. Rvalues strongly prefere binding to rvalue references.
+ * Modifiable expression weakly prefer binding to modifiable references.
+ 
