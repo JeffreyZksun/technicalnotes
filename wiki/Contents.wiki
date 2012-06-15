@@ -10,7 +10,7 @@
  * C#
    * [Destructor  Destructor]
    * [Dispose Dispose]
-   * [GarbageCollection Garbage collection]
+   * [Garbagecollection Garbage collection]
  * Software
    * [GoodSoftware Develop Good Software]
    * [SoftwareDevelopmentProcess Software Development Process]
