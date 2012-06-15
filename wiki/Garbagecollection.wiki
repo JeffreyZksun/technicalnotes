@@ -1,0 +1,21 @@
+
+ = Garbage collection =
+*Collection*
+Garbage collection occurs when one of the following conditions is true: {{{[1]}}}
+
+ * The system has low physical memory.
+ * The memory that is used by allocated objects on the managed heap surpasses an acceptable threshold. 
+ * GC.Collect is called.
+
+*Generations*
+The heap is organized into generations so it can handle long-lived and short-lived objects.
+
+ * *Generation 0*. This is the youngest generation and contains short-lived objects. An example of a short-lived object is a temporary variable. Garbage collection occurs most frequently in this generation.
+ * *Generation 1*. This generation contains short-lived objects and serves as a buffer between short-lived objects and long-lived objects.
+ * *Generation 2*. This generation contains long-lived objects. An example of a long-lived object is an object in a server application that contains static data that is live for the duration of the process.
+
+*GC process*
+[http://www.cnblogs.com/images/cnblogs_com/sban/gc.JPG]
+ 
+  = Reference =
+{{{[1]}}} http://msdn.microsoft.com/en-us/library/ee787088%28v=vs.110%29
