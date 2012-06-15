@@ -1,5 +1,5 @@
  * [Introduction        Introduction]
- * C++ Standard
+ * C++
    * [Cplusplus11Support C++ 11 support]
    * [basic_ifstream_example    basic_ifstream example]
    * [basic_stringbuf_example   basic_stringbuf example]
@@ -7,6 +7,10 @@
    * [MultipleInheritance Multiple Inheritance]
    * [ObjectSizeTesting Object Size Testing]
    * [IOLibrary IOLibrary]
+ * C#
+   * [Destructor  Destructor]
+   * [Dispose Dispose]
+   * [GarbageCollection Garbage collection]
  * Software
    * [GoodSoftware Develop Good Software]
    * [SoftwareDevelopmentProcess Software Development Process]
@@ -18,4 +22,3 @@
 
 
  * [http://code.google.com/p/tech-notes/w/list list all]
-
