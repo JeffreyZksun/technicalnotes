@@ -6,6 +6,8 @@
  = lvaue reference & rvalue reference =
  * Lvalues strongly prefer binding to lvalue references. Rvalues strongly prefere binding to rvalue references.
  * Modifiable expression weakly prefer binding to modifiable references.
+
+Whe resolve the override, for modifiable lvalue paramenter, it checks if there is lvaue reference first. If exist, it checks if modifiable lvalue reference override exists. If exist, bind it. Otherwise, bind the const lvalue reference.
  
  = Code 1 = 
 {{{
