@@ -1,0 +1,59 @@
+If a class doesn't contain any data member and virtual function, its size is 1.
+  *  The reason the size is non-zero is "To ensure that the addresses of two different objects will be different.".
+
+If a class contains data member or virtual function, its size is the sum of the size of the data members and the pointer of virtual table.
+
+{{{
+#include <iostream>
+#pragma pack(1)
+
+class EmptyCLS
+{
+    
+};
+
+class EmptyCLSWithVirtual
+{
+    public:
+    virtual ~EmptyCLSWithVirtual(){}
+};
+
+class OneCharCLS
+{
+private:
+    char onechar;
+};
+
+class OneCharCLSWithVirtual
+{
+public:
+    virtual ~OneCharCLSWithVirtual(){}
+    
+private:
+    char onechar;
+};
+
+int main (int argc, const char * argv[])
+{
+    std::cout << "Test the size of the different class defination:" << std::endl;
+    std::cout << "EmptyCLS:\t\t" << sizeof(EmptyCLS) << std::endl;
+    std::cout << "EmptyCLSWithVirtual:\t" << sizeof(EmptyCLSWithVirtual) << std::endl;
+    std::cout << "OneCharCLS:\t\t " << sizeof(OneCharCLS) << std::endl;
+    std::cout << "OneCharCLSWithVirtual:\t " << sizeof(OneCharCLSWithVirtual) << std::endl;
+    
+    return 0;
+}
+}}}
+
+Output On Mac
+{{{
+Test the size of the different class defination:
+EmptyCLS:               1
+EmptyCLSWithVirtual:    8
+OneCharCLS:              1
+OneCharCLSWithVirtual:   9
+}}}
+
+*Reference*
+
+ # Why is the size of an empty class in C++ not zero?. http://stackoverflow.com/questions/2362097/why-is-the-size-of-an-empty-class-in-c-not-zero

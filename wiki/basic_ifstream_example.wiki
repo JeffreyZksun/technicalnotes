@@ -1,0 +1,33 @@
+= basic_ifstream =
+
+{{{
+#include <string>
+#include <iostream>
+#include <fstream>
+
+// fileIn.txt
+// 123 a 456
+
+using namespace std;
+
+int main()
+{
+    basic_string<char> strFileName("/Users/jeffreysun/Documents/fileIn.txt");
+   
+    basic_ifstream<char> istream;
+    istream.open(strFileName.c_str());
+   
+    cout<< "Is open: " << istream.is_open() << endl;
+    int i, j;
+    char c;
+    istream >> i;
+    istream >> c;
+    istream >> j;
+    cout << i << endl;
+    cout << c << endl;
+    cout << j << endl;
+}
+}}}
+
+[http://i.stack.imgur.com/9wUHa.gif]
+

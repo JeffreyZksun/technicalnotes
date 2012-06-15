@@ -1,0 +1,108 @@
+#summary Implement a dictionary to handle all the persistent data of the application.
+ 
+* Responsibilities
+                * It saves the key and value pairs.
+                * The derived key and value objects must work as data types. The operator ==, = must be overridden.
+                * It owns all the things saved to it.
+ 
+ 
+* Pseudo code for the implementation
+{{{
+Dictionary : IDbObject
+{
+                void Add(String key, ObjectId value);
+                void Add(String key, int value);
+                void Add(String key, long value);
+                void Add(String key, bool value);
+                void Add(String key, time value);
+                void Add(String key, String value);
+               
+                DictionaryItem GetItem(const String& key);
+               
+                String m_name;
+               
+                // Define two classes for the key and value. 
+                // We can benefit good expansibility from the inheritance.
+                typedef std::map<DictionaryKey, DictionaryValue> KeyValueMap;
+                KeyValueMap m_dataMap;
+}
+ 
+/*************************************************/
+class DictionaryItem  // Manipulator class to parse the value.
+{
+                int AsInt();
+                bool AsBoolen();
+                long AsLong();
+                ObjectId AsObjectId();
+ 
+                // Use the reference to avoid data copy. 
+                // Maybe we do need a copy for multi-threads.
+                DictionaryKey& m_key;
+                DictionaryValue& m_value;
+}
+ 
+ 
+/*************************************************/
+class DictionaryKey
+{
+                operator == ();
+}
+class StringKey: public DictionaryKey
+{
+                String m_key;
+}
+ 
+ 
+class DictionaryValue
+{
+                operator == ();
+}
+class StringValue: public DictionaryValue
+{
+                String m_value;
+}
+class ObjectIdValue: public DictionaryValue
+{
+                ObjectId m_objectId;
+}
+ 
+}}}
+ 
+* Sample code to use it
+{{{
+ 
+shared_ptr<Database> pDatabase(new Database());
+ 
+shared_ptr<Dictionary> pRootDict (new Dictionary("Root"));
+shared_ptr<Dictionary> pAppOptionDict (new Dictionary("AppOption"));
+ 
+pDatabase->AddObject(pRootDict);
+ObjectId optId = pDatabase->AddObject(pAppOptionDict);
+ 
+// Implement the composite design pattern
+pRootDict->Add("AppOption", optId);
+ 
+// Add string datum to dictionary
+// Save string pairs.
+// "AppOptions:LogFileName" = "app-log.txt"; // string
+// "AppOptions:Enablelog" = "1"; // number
+// "AppOptions:Background" = "255,0,127"; // many numbers
+// "AppOptions:LastUpdate" = "2012-5-23 17:28"; // data and time
+ 
+pAppOptionDict->Add("AppOptions:LogFileName", "app-log.txt");
+pAppOptionDict->Add("AppOptions:Enablelog", 1);
+pAppOptionDict->Add("AppOptions:Background", "255,0,127");
+pAppOptionDict->Add("AppOptions:LastUpdate", "2012-5-23 17:28");
+ 
+// Get data from dictionary
+{
+                ObjectId optId = pRootDict->GetItem("AppOption").AsObjectId();
+}
+{
+                DictionaryItem item = pAppOptionDict->GetItem("AppOptions:Enablelog");
+                int bEnable = item.AsBool();
+}
+{
+                String str = pAppOptionDict->GetItem("AppOptions:LogFileName").AsString();
+}
+}}}

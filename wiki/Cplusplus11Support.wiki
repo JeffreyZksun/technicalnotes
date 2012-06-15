@@ -1,0 +1,14 @@
+#labels Featured
+This page list the C++ features supported by the mainstream compilers.
+
+
+[http://blogs.msdn.com/b/vcblog/archive/2011/09/12/10209291.aspx C++11 Features in Visual C++ 10/11]
+
+[http://clang.llvm.org/cxx_status.html C++'11 Support in Clang]
+
+[http://gcc.gnu.org/projects/cxx0x.html C++0x/C++11 Support in GCC]
+
+
+
+ = Reference =
+The Final Draft International Standard is no longer publicly available.  It was immediately preceded by Working Paper [http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf N3242], which is fairly close in content.
