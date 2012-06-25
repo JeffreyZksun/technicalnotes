@@ -8,6 +8,7 @@
    * [basic_stringbuf_example   basic_stringbuf example]
    * [localeFactes locale facets example]
    * [MultipleInheritance Multiple Inheritance]
+   * [CtorDetorSequence  CtorDetorSequence]
    * [ObjectSizeTesting Object Size Testing]
    * [IOLibrary IOLibrary]
  * C#
