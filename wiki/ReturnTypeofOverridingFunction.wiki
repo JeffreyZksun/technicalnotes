@@ -1,0 +1,46 @@
+The return type of an overriding function shall be either identical to the return type of the overridden
+function or covariant with the classes of the functions.(C++ 11 10.3/7)
+ * If the return type is pointer or reference, the return type of the derived class function must be the derived type of that of the base class function *AND* the return type of the derived class function must be less cv-qualification than that of the base class function. (This is so called covariant)
+ * If the return type is non-pointer and non-reference, the return types must be identical.
+
+
+{{{
+
+#include <iostream>
+using namespace std;
+
+struct A
+{
+	virtual ~A(){}
+};
+struct B: public A
+{
+};
+
+struct C
+{
+	virtual ~C(){}
+
+	virtual const A* build(){cout<<"A"<<endl; return new A();}
+};
+struct D: public C
+{
+	virtual B* build() {cout<<"B"<<endl; return new B();}
+};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	C *p = new D();
+	const A* pA = p->build();
+
+	delete p;
+	delete pA;
+
+	return 0;
+}
+}}}
+
+Output
+{{{
+B
+}}}
