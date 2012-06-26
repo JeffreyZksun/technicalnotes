@@ -1,6 +1,6 @@
 The return type of an overriding function shall be either identical to the return type of the overridden
 function or covariant with the classes of the functions.(C++ 11 10.3/7)
- * If the return type is pointer or reference, the return type of the derived class function must be the derived type of that of the base class function *AND* the return type of the derived class function must be less cv-qualification than that of the base class function. (This is so called covariant)
+ * If the return type is pointer or reference, the return type of the derived class function must be the derived type of that of the base class function *AND* the return type of the derived class function must be less cv-qualification than or equal to that of the base class function. (This is so called covariant)
  * If the return type is non-pointer and non-reference, the return types must be identical.
 
 
