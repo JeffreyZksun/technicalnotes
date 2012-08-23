@@ -1,4 +1,4 @@
-#summary ?? and ?
+#summary Nullable type ? and null-coalescing operator ??
 
 = ?? Operator (C# Reference) =
 The ?? operator is called the null-coalescing operator and is used to define a default value for nullable value types or reference types. It returns the left-hand operand if the operand is not null; otherwise it returns the right operand.
