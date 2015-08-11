@@ -1,0 +1,134 @@
+The different base sub-object has different address. The first base class sub object has the same address as the concrete complete object.
+```
+#include <iostream>
+
+class IA
+{
+  public:
+    virtual ~IA(){}
+    virtual void PrintA() = 0;
+   
+    char a;
+};
+
+class IB
+{
+public:
+    virtual ~IB(){}
+    virtual void PrintB() = 0;
+
+    char b;
+};
+
+class AB : public IA, public IB
+{
+public:
+    virtual ~AB(){}
+    virtual void PrintA() {std::cout << "A\n";};
+    virtual void PrintB() {std::cout << "B\n";};    
+};
+
+int main (int argc, const char * argv[])
+{
+
+    AB* pAB = new AB();
+    IA* pA= pAB;
+    IB* pB= static_cast<IB*>(dynamic_cast<AB*>(pA));
+    pA->PrintA();
+    pB->PrintB();
+   
+    std::cout << "AB:" << reinterpret_cast<long int>(pAB) << "\n";
+    std::cout << "IA:" << reinterpret_cast<long int>(pA) << "\n";
+    std::cout << "IB:" << reinterpret_cast<long int>(pB) << "\n";
+
+    return 0;
+}
+```
+Output from Mac Xcode.
+```
+A
+B
+AB:4296018448
+IA:4296018448
+IB:4296018464
+```
+
+```
+#include <iostream>
+class IA0
+{
+public:
+    virtual ~IA0(){}
+};
+
+class IA1
+{
+public:
+    virtual ~IA1(){}
+};
+
+class IA : public IA1, public IA0
+{
+  public:
+    virtual ~IA(){}
+    virtual void PrintA() = 0;
+    };
+
+class IB
+{
+public:
+    virtual ~IB(){}
+    virtual void PrintB() = 0;
+
+    };
+
+class IC
+{
+public:
+    virtual ~IC(){}
+    virtual void PrintC(){};
+};
+
+
+class AB : public IA, public IB, public IC
+{
+public:
+    virtual ~AB(){}
+    virtual void PrintA() {std::cout << "A\n";};
+    virtual void PrintB() {std::cout << "B\n";};    
+};
+
+int main (int argc, const char * argv[])
+{
+
+    AB* pAB = new AB();
+    IA* pA= pAB;
+    IB* pB= static_cast<IB*>(dynamic_cast<AB*>(pA));
+    pA->PrintA();
+    pB->PrintB();
+    IC* pC = pAB;
+    IA0* pA0 = pAB;
+    IA1* pA1 = pAB;
+   
+    std::cout << "AB:" << reinterpret_cast<long int>(pAB) << "\n";
+    std::cout << "IA:" << reinterpret_cast<long int>(pA) << "\n";
+    std::cout << "IA0:" << reinterpret_cast<long int>(pA0) << "\n";
+    std::cout << "IA1:" << reinterpret_cast<long int>(pA1) << "\n";
+    std::cout << "IB:" << reinterpret_cast<long int>(pB) << "\n";
+    std::cout << "IC:" << reinterpret_cast<long int>(pC) << "\n";
+
+    return 0;
+}
+```
+
+Output
+```
+A
+B
+AB:4296018448
+IA:4296018448
+IA0:4296018456
+IA1:4296018448
+IB:4296018464
+IC:4296018472
+```

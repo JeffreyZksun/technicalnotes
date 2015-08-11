@@ -1,0 +1,110 @@
+> # lvalue & rvalue #
+  * Lvalues are addressable. non-const lvalues are also assignbale.
+  * Rvalue is neither addressable nor assignable.
+  * Lvalues name objects that persist beyond a single expression. ++i is lvaue and i++ is rvalue.
+
+> # lvaue reference & rvalue reference #
+  * Lvalues strongly prefer binding to lvalue references. Rvalues strongly prefere binding to rvalue references.
+  * Modifiable expression weakly prefer binding to modifiable references.
+
+Whe resolve the override, for modifiable lvalue paramenter, it checks if there is lvaue reference first. If exist, it checks if modifiable lvalue reference override exists. If exist, bind it. Otherwise, bind the const lvalue reference.
+
+> # Code 1 #
+```
+#include <iostream>
+
+int& createLvalue() { static int a = 0; return a; } 
+int createRvalue() { return 0; } 
+const int& createCLvalue() { static int a = 0; return a; } 
+const int createCRvalue() { return 0; } 
+
+void func(int &) { std::cout << "lvalue reference: int &" << std::endl; }
+void func(int &&) { std::cout << "rvalue reference: int &&" << std::endl; }
+void func(const int &)  { std::cout << "const lvalue reference: const int &" << std::endl; }
+void func(const int &&) {std::cout << "const rvalue reference: const int &&" << std::endl; }
+
+int main()
+{
+	func(createLvalue());
+	func(createRvalue());
+	func(createCLvalue());
+	func(createCRvalue());
+
+	return 0;
+}
+```
+
+Output
+```
+lvalue reference: int &
+rvalue reference: int &&
+const lvalue reference: const int &
+const rvalue reference: const int &&
+```
+
+> # Code 2 #
+```
+#include <iostream>
+
+int& createLvalue() { static int a = 0; return a; } 
+int createRvalue() { return 0; } 
+const int& createCLvalue() { static int a = 0; return a; } 
+const int createCRvalue() { return 0; } 
+
+void func(int &) { std::cout << "lvalue reference: int &" << std::endl; }
+//void func(int &&) { std::cout << "rvalue reference: int &&" << std::endl; }
+void func(const int &)  { std::cout << "const lvalue reference: const int &" << std::endl; }
+void func(const int &&) {std::cout << "const rvalue reference: const int &&" << std::endl; }
+
+int main()
+{
+	func(createLvalue());
+	func(createRvalue());
+	func(createCLvalue());
+	func(createCRvalue());
+
+	return 0;
+}
+
+```
+
+> Output
+```
+lvalue reference: int &
+const rvalue reference: const int &&
+const lvalue reference: const int &
+const rvalue reference: const int &&
+```
+
+> # Code 3 #
+```
+#include <iostream>
+
+int& createLvalue() { static int a = 0; return a; } 
+int createRvalue() { return 0; } 
+const int& createCLvalue() { static int a = 0; return a; } 
+const int createCRvalue() { return 0; } 
+
+void func(int &) { std::cout << "lvalue reference: int &" << std::endl; }
+//void func(int &&) { std::cout << "rvalue reference: int &&" << std::endl; }
+void func(const int &)  { std::cout << "const lvalue reference: const int &" << std::endl; }
+//void func(const int &&) {std::cout << "const rvalue reference: const int &&" << std::endl; }
+
+int main()
+{
+	func(createLvalue());
+	func(createRvalue());
+	func(createCLvalue());
+	func(createCRvalue());
+
+	return 0;
+}
+```
+
+> Output
+```
+lvalue reference: int &
+const lvalue reference: const int &
+const lvalue reference: const int &
+const lvalue reference: const int &
+```

@@ -1,0 +1,5 @@
+  * What is good software?
+The software is good if the users like it. It meets the requirements. And the user can tolerate the defects.
+
+  * What is the most important to develop the software meets the specified requirements?
+Software architecture.

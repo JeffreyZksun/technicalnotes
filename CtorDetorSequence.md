@@ -1,0 +1,45 @@
+  * The call sequence of constructors are: base->member sub object->self.
+  * The call sequence of destructors are the reverse process: self->member sub object->base,
+
+```
+
+#include <iostream>
+using namespace std;
+struct C
+{
+	C(){cout << "C" << endl;}
+	virtual ~C() {cout << "~C" << endl;};
+};
+
+struct A
+{
+	A(){cout << "A" << endl;}
+	virtual ~A() {cout << "~A" << endl;};
+};
+
+struct B : public A
+{
+	B(){cout << "B" << endl;}
+	virtual ~B() {cout << "~B" << endl;};
+
+	C c;
+};
+
+int main(int argc, _TCHAR* argv[])
+{
+	B* b = new B();
+	delete b;
+	return 0;
+}
+
+```
+
+Output
+```
+A
+C
+B
+~B
+~C
+~A
+```

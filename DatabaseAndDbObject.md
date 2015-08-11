@@ -1,0 +1,46 @@
+**Responsibilities
+  * Database
+    * It is the entry of the persistent data of the application. Document load & save starts from here.
+    * All the persistent objects are saved in the database.
+    * It owns the objects added to it.
+    * It generate the id for the added object. Add recycle it when the object is removed.
+    * All the objects must be created on the heap.
+  * ObjectId
+    * It is lightweight class and works as a value type. The deep copy is very light.
+    * it identifies an object in the application process.
+    * Its capacity is big enough to identify all the objects generated in application session.
+  * IDbObject
+    * The base class for the persistent object.
+    * It defines the interfaces to do the persistence, such as save & load.
+    * It is assigned an object id after it is added to database.**
+
+  * Pseudo code for the implementation
+```
+class Database : IDbObject
+{
+                ObjectId AddObject(shared_ptr<IDbObject>); //
+                shared_ptr<IDbObject> GetObject(ObjectId objId);
+               
+               
+                Load();
+                Save();
+}
+ 
+/*************************************************/
+class ObjectId
+{
+                unsigned int m_id;
+}
+ 
+class IDbObject
+{
+                // The object id is validate after it is added to database. 
+                // If an object isn't added to data base, a dummy id is returned.
+                ObjectId GetObjectId(); 
+               
+                Load();
+                Save();
+}
+ 
+```
+
